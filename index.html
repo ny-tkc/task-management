@@ -1134,14 +1134,14 @@
           const activeTasks = state.tasks.filter(t => !t.archived);
           let csvContent = "data:text/csv;charset=utf-8,";
           csvContent += "\uFEFF"; 
-          csvContent += "事務所名,コード,タスク名,区分,期限\n";
+          csvContent += "コード,事務所名,タスク名\n";
 
           activeTasks.forEach(task => {
             task.assignments.forEach(assignment => {
               if (!assignment.completed) {
                 const partner = state.partners.find(p => p.id === assignment.partnerId);
                 if (partner) {
-                  const row = `"${partner.name}","${partner.code}","${task.title}","${task.category}","${task.deadline}"`;
+                  const row = `"${partner.code}","${partner.name}","${task.title}"`;
                   csvContent += row + "\n";
                 }
               }
@@ -1177,7 +1177,7 @@
                     リスト作成やリマインド連絡等に活用できます。
                   </p>
                   <div className="bg-gray-50 p-3 rounded text-xs text-gray-500 font-mono mb-4">
-                      出力項目: 事務所名, コード, タスク名, 区分, 期限
+                      出力項目: コード, 事務所名, タスク名
                   </div>
                 </div>
                 <button 
